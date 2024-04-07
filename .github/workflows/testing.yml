@@ -38,7 +38,12 @@ jobs:
       - name: Validate Template
         run: |
               sudo su
-              cd $TMPDIR
+              if [ -d /root/Validate ]; then
+                rm -rf /root/Validate
+              fi
+              mkdir -p /root/Validate
+              cp $TMPDIR/cluster-network.tf /root/Validate
+              cd /root/Validate
               id
               pwd
               tofu init
