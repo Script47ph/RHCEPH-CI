@@ -22,12 +22,12 @@ jobs:
       TMPDIR: ${{ vars.TMPDIR }}
     steps:
       - uses: actions/checkout@main
-      - name: Create Temp Directory
-        run: |
-              # if [ -d $TMPDIR ]; then
-              #   sudo rm -rf $TMPDIR
-              # fi
-              mkdir -p $TMPDIR
+      # - name: Create Temp Directory
+      #   run: |
+      #         # if [ -d $TMPDIR ]; then
+      #         #   sudo rm -rf $TMPDIR
+      #         # fi
+      #         mkdir -p $TMPDIR
       - name: Generate Libvirt Network
         run: |
               source scripts/generate-network.sh
@@ -52,12 +52,16 @@ jobs:
     needs: Prepare
     runs-on: self-hosted
     steps:
+      - name: SSH Test
+        run: |
+              sudo ssh dwara
+              whoami
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
       #     path: your/destination/dir
-      - name: Display structure of downloaded files
-        run: ls -R ${{ vars.TMPDIR }}
+      # - name: Display structure of downloaded files
+      #   run: ls -R ${{ vars.TMPDIR }}
       # - name: Check Libvirt Network in Cluster
       #   run: |
       #         if [[ -n $(sudo virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME') ]]; then 
