@@ -19,6 +19,12 @@ jobs:
           ETH0_NAME: ${{ vars.ETH0_NAME }}
           ETH0_BR: ${{ vars.ETH0_BR }}
           ETH0_ADDRESSES: ${{ vars.ETH0_ADDRESSES }}
+          ETH1_NAME: ${{ vars.ETH1_NAME }}
+          ETH1_BR: ${{ vars.ETH1_BR }}
+          ETH1_ADDRESSES: ${{ vars.ETH1_ADDRESSES }}
+          ETH2_NAME: ${{ vars.ETH2_NAME }}
+          ETH2_BR: ${{ vars.ETH2_BR }}
+          ETH2_ADDRESSES: ${{ vars.ETH2_ADDRESSES }}
           NETWORK_MODE: ${{ vars.NETWORK_MODE }}
       # - name: Check User Info
       #   run: |
