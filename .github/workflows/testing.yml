@@ -38,11 +38,12 @@ jobs:
       - name: Validate Template
         run: |
               sudo su
+              cd $TMPDIR
               id
               pwd
-              ls -R
-              # tofu init
+              tofu init
               # tofu validate
+              ls -Ra
   Deploy:
     needs: Prepare
     runs-on: self-hosted
