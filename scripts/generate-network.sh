@@ -24,4 +24,4 @@
 #     }
 # }
 # EOF
-echo ${{ vars.ETH0_NAME }}
+echo ${ETH0_NAME}
