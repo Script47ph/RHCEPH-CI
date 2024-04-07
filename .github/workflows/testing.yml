@@ -49,68 +49,8 @@ jobs:
               resource "libvirt_network" "eth0" {
                   name = "net-dont-use-eth0"
                   mode = "nat"
-                  bridge = "br-192.168.251"
+                  bridge = "${BR_ETH0}"
                   addresses = ["192.168.251.0/24"]
-                  dhcp {
-                      enabled = true
-                  }
-              }
-              
-              resource "libvirt_network" "eth1" {
-                  name = "net-dont-use-eth1"
-                  mode = "nat"
-                  bridge = "br-192.168.236"
-                  addresses = ["192.168.236.0/24"]
-                  dhcp {
-                      enabled = true
-                  }
-              }
-              
-              resource "libvirt_network" "eth2" {
-                  name = "net-dont-use-eth2"
-                  mode = "nat"
-                  bridge = "br-192.168.237"
-                  addresses = ["192.168.237.0/24"]
-                  dhcp {
-                      enabled = true
-                  }
-              }
-              
-              resource "libvirt_network" "eth3" {
-                  name = "net-dont-use-eth3"
-                  mode = "nat"
-                  bridge = "br-192.168.216"
-                  addresses = ["192.168.216.0/24"]
-                  dhcp {
-                      enabled = true
-                  }
-              }
-              
-              resource "libvirt_network" "eth4" {
-                  name = "net-dont-use-eth4"
-                  mode = "nat"
-                  bridge = "br-192.168.224"
-                  addresses = ["192.168.224.0/24"]
-                  dhcp {
-                      enabled = true
-                  }
-              }
-              
-              resource "libvirt_network" "eth5" {
-                  name = "net-dont-use-eth5"
-                  mode = "nat"
-                  bridge = "br-192.168.238"
-                  addresses = ["192.168.238.0/24"]
-                  dhcp {
-                      enabled = true
-                  }
-              }
-              
-              resource "libvirt_network" "eth6" {
-                  name = "net-dont-use-eth6"
-                  mode = "nat"
-                  bridge = "br-192.168.239"
-                  addresses = ["192.168.239.0/24"]
                   dhcp {
                       enabled = true
                   }
