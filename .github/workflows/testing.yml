@@ -12,6 +12,7 @@ jobs:
       - uses: actions/checkout@main
       - name: Generate Libvirt Network
         run: |
+              source scripts/generate-network.sh
               ls -R
               # cat cluster-network.tf
       # - name: Check User Info
