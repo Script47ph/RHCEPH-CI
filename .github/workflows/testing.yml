@@ -40,8 +40,9 @@ jobs:
       - name: Validate Template
         run: |
               cd $TMPDIR
-              tofu init
               tofu providers lock -platform=linux_amd64
+              tofu init
+              
               # tofu validate
   Deploy:
     needs: Prepare
