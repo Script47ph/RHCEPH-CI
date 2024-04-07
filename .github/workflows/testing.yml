@@ -37,7 +37,8 @@ jobs:
       #     name: Libvirt_Network_Template
       #     path: ${{ vars.TMPDIR }}/cluster-network.tf
       #     overwrite: true
-      - uses: hashicorp/setup-terraform@v1
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
       - name: Validate Template
         run: |
               cd $TMPDIR
