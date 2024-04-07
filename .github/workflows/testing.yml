@@ -42,8 +42,8 @@ jobs:
               cd $TMPDIR
               # tofu providers lock -platform=linux_amd64
               tofu init
-              
-              # tofu validate
+              sleep 10
+              tofu validate
   Deploy:
     needs: Prepare
     runs-on: self-hosted
