@@ -33,6 +33,7 @@ jobs:
       - name: Validate Template
         run: |
               cd $TMPDIR
+              tofu init
               tofu validate
       # - uses: actions/upload-artifact@v4
       #   with:
