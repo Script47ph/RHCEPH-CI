@@ -17,7 +17,7 @@ terraform {
 resource "libvirt_network" "eth0" {
     name = "$ETH0_NAME"
     mode = "$NETWORK_MODE"
-    bridge = "$BR_ETH0"
+    bridge = "$ETH0_BR"
     addresses = ["$ETH0_ADDRESSES"]
     dhcp {
         enabled = true
