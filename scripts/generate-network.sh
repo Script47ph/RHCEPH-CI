@@ -1,6 +1,5 @@
-#!/bin/bash
 generate_net() {
-    cat <<EOF> $TMP_DIR/cluster-network.tf
+    cat <<EOF> $TMPDIR/cluster-network.tf
     provider "libvirt" {
         uri = "qemu:///system"
     }
@@ -49,6 +48,3 @@ generate_net() {
     }
 EOF
 }
-
-# Main
-generate_net

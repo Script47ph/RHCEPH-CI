@@ -19,27 +19,26 @@ jobs:
       ETH2_BR: ${{ vars.ETH2_BR }}
       ETH2_ADDRESSES: ${{ vars.ETH2_ADDRESSES }}
       NETWORK_MODE: ${{ vars.NETWORK_MODE }}
-      TMP_DIR: ${{ vars.TMP_DIR }}
+      TMPDIR: ${{ vars.TMPDIR }}
     steps:
       - uses: actions/checkout@main
       - name: Create Temp Directory
-        run: mkdir -p $TMP_DIR
+        run: mkdir -p $TMPDIR
       - name: Generate Libvirt Network
         run: |
-              bash scripts/generate-network.sh
+              source scripts/generate-network.sh
+              generate_net
               # ls -R
-              # cat cluster-network.tf
-      - name: Check Libvirt Network in Cluster
-        run: |
-              if [[ -n $(sudo virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME') ]]; then 
-                  echo "Libvirt Network Already Exists"
-                  sudo virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME'
-              else
-                  echo "Applying Livirt Network.."
-                  cat $TMP_DIR/cluster-network.tf
-                  # bash network/create-net.sh
-                  # sudo virsh net-list | grep net-${CIDR}.*
-              fi
+              cat cluster-network.tf
+      # - name: Check Libvirt Network in Cluster
+      #   run: |
+      #         if [[ -n $(sudo virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME') ]]; then 
+      #             echo "Libvirt Network Already Exists"
+      #             sudo virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME'
+      #         else
+      #             echo "Applying Livirt Network.."
+      #             # sudo virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME'
+      #         fi
       # - name: Check User Info
       #   run: |
       #         id
