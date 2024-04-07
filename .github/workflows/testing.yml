@@ -51,10 +51,13 @@ jobs:
     needs: Prepare
     runs-on: self-hosted
     steps:
-      - name: SSH Test
-        run: |
-              sudo ssh dwara
-              whoami
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.LAB7_HOST }}
+          username: ${{ secrets.LAB7_USER }}
+          key: ${{ secrets.LAB7_KEY }}
+          script: whoami
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
