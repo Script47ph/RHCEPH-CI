@@ -30,18 +30,19 @@ jobs:
               generate_net
               # ls -R
               # cat $TMPDIR/cluster-network.tf
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Libvirt_Network_Template
-          path: ${{ vars.TMPDIR }}/cluster-network.tf
-          overwrite: true
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: Libvirt_Network_Template
+      #     path: ${{ vars.TMPDIR }}/cluster-network.tf
+      #     overwrite: true
       - name: Validate Template
         run: |
               sudo su
               id
               pwd
-              tofu init
-              tofu validate
+              ls -R
+              # tofu init
+              # tofu validate
   Deploy:
     needs: Prepare
     runs-on: self-hosted
