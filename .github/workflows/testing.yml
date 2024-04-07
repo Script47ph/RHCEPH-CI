@@ -18,47 +18,20 @@ jobs:
   Prepare:
     # environment:
     #   name: Manual
+    env:
+      Hello: Konnichiwa
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@main
-      - name: Check User Info
-        run: |
-              id
-              pwd
+      # - name: Check User Info
+      #   run: |
+      #         id
+      #         pwd
       # - name: Checkout to root
       #   run: sudo su
-      - name: Creating Terraform Network
+      - name: Variable Test
         run: |
-              echo $BR_ETH0
-              mkdir -p network
-              cat <<EOF > network/cluster-network.tf
-              provider "libvirt" {
-                  uri = "qemu:///system"
-              }
-              
-              terraform {
-               required_version = ">= 0.13"
-                required_providers {
-                  libvirt = {
-                    source  = "dmacvicar/libvirt"
-                    version = "0.7.1"
-                  }
-                }
-              }
-              
-              // Network Section
-              resource "libvirt_network" "eth0" {
-                  name = "net-dont-use-eth0"
-                  mode = "nat"
-                  bridge = ""
-                  addresses = ["192.168.251.0/24"]
-                  dhcp {
-                      enabled = true
-                  }
-              }
-              EOF
-              cat network/cluster-network.tf
-              id
+              echo $Hello
   # Setup:
   #   needs: Prepare
   #   environment:
