@@ -37,16 +37,10 @@ jobs:
       #     overwrite: true
       - name: Validate Template
         run: |
-              if [ -d /root/Validate ]; then
-                sudo rm -rf /root/Validate
-              fi
-              sudo mkdir -p /root/Validate
-              sudo cp $TMPDIR/cluster-network.tf /root/Validate
-              sudo -i
               id
               pwd
               # cd /root/Validate
-              # tofu init
+              sudo tofu init
               # tofu validate
               ls -R
   Deploy:
