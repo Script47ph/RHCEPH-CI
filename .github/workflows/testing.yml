@@ -41,9 +41,9 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
       - name: Terraform Init
-        run: terraform init
+        run: terraform init >> $GITHUB_OUTPUT
       - name: Terraform Validate
-        run: terraform validate
+        run: terraform validate >> $GITHUB_OUTPUT
   Deploy:
     needs: Prepare
     runs-on: self-hosted
