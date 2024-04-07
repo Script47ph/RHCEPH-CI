@@ -40,10 +40,10 @@ jobs:
       - name: Validate Template
         run: |
               cd $TMPDIR
+              terraform init
               # tofu providers lock -platform=linux_amd64
-              tofu init
-              sleep 10
-              tofu validate
+              # tofu init
+              # tofu validate
   Deploy:
     needs: Prepare
     runs-on: self-hosted
