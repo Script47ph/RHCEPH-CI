@@ -39,6 +39,8 @@ jobs:
                       enabled = true
                   }
               }
+              EOF
+              cat cluster-network.tf
       # - name: Check User Info
       #   run: |
       #         id
