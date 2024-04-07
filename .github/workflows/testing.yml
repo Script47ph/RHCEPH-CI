@@ -23,13 +23,15 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: Create Temp Directory
-        run: mkdir -p $TMPDIR
+        run: |
+              if [ -d $TMPDIR ]; then
+                sudo rm -rf $TMPDIR
+              fi
+              mkdir -p $TMPDIR
       - name: Generate Libvirt Network
         run: |
               source scripts/generate-network.sh
               generate_net
-              # ls -R
-              # cat $TMPDIR/cluster-network.tf
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: Libvirt_Network_Template
