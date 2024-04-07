@@ -40,8 +40,8 @@ jobs:
       - name: Validate Template
         run: |
               cd $TMPDIR
-              sudo tofu init
-              sudo tofu validate
+              tofu init
+              tofu validate
   Deploy:
     needs: Prepare
     runs-on: self-hosted
