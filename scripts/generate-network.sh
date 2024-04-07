@@ -23,4 +23,26 @@ resource "libvirt_network" "eth0" {
         enabled = true
     }
 }
+
+// Network Section
+resource "libvirt_network" "eth1" {
+    name = "$ETH1_NAME"
+    mode = "$NETWORK_MODE"
+    bridge = "$ETH1_BR"
+    addresses = ["$ETH1_ADDRESSES"]
+    dhcp {
+        enabled = true
+    }
+}
+
+// Network Section
+resource "libvirt_network" "eth2" {
+    name = "$ETH2_NAME"
+    mode = "$NETWORK_MODE"
+    bridge = "$ETH2_BR"
+    addresses = ["$ETH2_ADDRESSES"]
+    dhcp {
+        enabled = true
+    }
+}
 EOF
