@@ -34,10 +34,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: Libvirt_Network_Template
-          path: $TMPDIR/cluster-network.tf
+          path: ${{ vars.TMPDIR }}/cluster-network.tf
           overwrite: true
-        env:
-          TMPDIR: ${{ vars.TMPDIR }}
   Deploy:
     needs: Prepare
     runs-on: self-hosted
