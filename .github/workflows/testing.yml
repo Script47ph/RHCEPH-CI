@@ -48,7 +48,7 @@ jobs:
               # cd /root/Validate
               # tofu init
               # tofu validate
-              ls -Ra
+              ls -R
   Deploy:
     needs: Prepare
     runs-on: self-hosted
