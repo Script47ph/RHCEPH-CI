@@ -29,8 +29,8 @@ jobs:
               
               // Network Section
               resource "libvirt_network" "eth0" {
-                  name = "net-dont-use-eth0"
-                  mode = "nat"
+                  name = "${{ vars.ETH0_NAME }}"
+                  mode = "${{ vars.NETWORK_MODE }}"
                   bridge = "${{ vars.BR_ETH0 }}"
                   addresses = ["${{ vars.ETH0_ADDRESSES }}"]
                   dhcp {
