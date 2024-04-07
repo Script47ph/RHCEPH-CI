@@ -1,4 +1,3 @@
-#!/bin/bash
 # cat <<EOF> cluster-network.tf
 # provider "libvirt" {
 #     uri = "qemu:///system"
