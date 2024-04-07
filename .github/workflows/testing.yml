@@ -7,11 +7,6 @@ on:
   workflow_dispatch:
 jobs:
   Prepare:
-    env:
-      ETH0_NAME: ${{ vars.ETH0_NAME }}
-      ETH0_BR: ${{ vars.ETH0_BR }}
-      ETH0_ADDRESSES: ${{ vars.ETH0_ADDRESSES }}
-      NETWORK_MODE: ${{ vars.NETWORK_MODE }}
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@main
@@ -20,6 +15,11 @@ jobs:
               bash scripts/generate-network.sh
               ls -R
               cat cluster-network.tf
+        env:
+          ETH0_NAME: ${{ vars.ETH0_NAME }}
+          ETH0_BR: ${{ vars.ETH0_BR }}
+          ETH0_ADDRESSES: ${{ vars.ETH0_ADDRESSES }}
+          NETWORK_MODE: ${{ vars.NETWORK_MODE }}
       # - name: Check User Info
       #   run: |
       #         id
