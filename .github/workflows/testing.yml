@@ -9,6 +9,9 @@ jobs:
   Prepare:
     env:
       ETH0_NAME: ${{ vars.ETH0_NAME }}
+      ETH0_BR: ${{ vars.ETH0_BR }}
+      ETH0_ADDRESSES: ${{ vars.ETH0_ADDRESSES }}
+      NETWORK_MODE: ${{ vars.NETWORK_MODE }}
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@main
