@@ -32,6 +32,8 @@ jobs:
       - name: Variable Test
         run: |
               echo $Hello
+      - name: Check List Var
+        run: env
   # Setup:
   #   needs: Prepare
   #   environment:
