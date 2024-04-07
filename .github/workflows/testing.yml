@@ -19,8 +19,11 @@ jobs:
       ETH2_BR: ${{ vars.ETH2_BR }}
       ETH2_ADDRESSES: ${{ vars.ETH2_ADDRESSES }}
       NETWORK_MODE: ${{ vars.NETWORK_MODE }}
+      TMP_DIR: ${{ vars.TMP_DIR }}
     steps:
       - uses: actions/checkout@main
+      - name: Create Temp Directory
+        run: mkdir -p $TMP_DIR
       - name: Generate Libvirt Network
         run: |
               bash scripts/generate-network.sh
@@ -33,7 +36,7 @@ jobs:
                   sudo virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME'
               else
                   echo "Applying Livirt Network.."
-                  # cat cluster-network.tf
+                  cat $TMP_DIR/cluster-network.tf
                   # bash network/create-net.sh
                   # sudo virsh net-list | grep net-${CIDR}.*
               fi
