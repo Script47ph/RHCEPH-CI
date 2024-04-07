@@ -20,6 +20,7 @@ jobs:
     #   name: Manual
     env:
       Hello: Konnichiwa
+      ETH0: ${{ vars.BR_ETH0 }}
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@main
@@ -32,6 +33,7 @@ jobs:
       - name: Variable Test
         run: |
               echo $Hello
+              echo $ETH0
       - name: Check List Var
         run: env
   # Setup:
