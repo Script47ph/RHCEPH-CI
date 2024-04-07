@@ -47,5 +47,8 @@ generate_net() {
             enabled = true
         }
     }
-    EOF
+EOF
 }
+
+# Main
+generate_net
