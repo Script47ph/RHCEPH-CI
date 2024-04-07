@@ -1,41 +1,50 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   # pull_request:
   #   branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   Prepare:
-    # environment:
-    #   name: Manual
     env:
-      Hello: Konnichiwa
       ETH0: ${{ vars.BR_ETH0 }}
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@main
+      - name: Generate Libvirt Network
+        run: |
+              cat <<EOF> cluster-network.tf
+              provider "libvirt" {
+                  uri = "qemu:///system"
+              }
+              
+              terraform {
+               required_version = ">= 0.13"
+                required_providers {
+                  libvirt = {
+                    source  = "dmacvicar/libvirt"
+                    version = "0.7.1"
+                  }
+                }
+              }
+              
+              // Network Section
+              resource "libvirt_network" "eth0" {
+                  name = "net-dont-use-eth0"
+                  mode = "nat"
+                  bridge = "$ETH0"
+                  addresses = ["192.168.251.0/24"]
+                  dhcp {
+                      enabled = true
+                  }
+              }
       # - name: Check User Info
       #   run: |
       #         id
       #         pwd
       # - name: Checkout to root
       #   run: sudo su
-      - name: Variable Test
-        run: |
-              echo $Hello
-              echo $ETH0
-      - name: Check List Var
-        run: env
   # Setup:
   #   needs: Prepare
   #   environment:
