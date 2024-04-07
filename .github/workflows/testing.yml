@@ -30,6 +30,7 @@ jobs:
               generate_net
               # ls -R
               cat $TMPDIR/cluster-network.tf
+              tofu validate
       # - name: Check Libvirt Network in Cluster
       #   run: |
       #         if [[ -n $(sudo virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME') ]]; then 
