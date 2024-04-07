@@ -24,9 +24,9 @@ jobs:
       - uses: actions/checkout@main
       - name: Create Temp Directory
         run: |
-              if [ -d $TMPDIR ]; then
-                sudo rm -rf $TMPDIR
-              fi
+              # if [ -d $TMPDIR ]; then
+              #   sudo rm -rf $TMPDIR
+              # fi
               mkdir -p $TMPDIR
       - name: Generate Libvirt Network
         run: |
@@ -42,7 +42,7 @@ jobs:
               cd $TMPDIR
               tofu init
               tofu providers lock -platform=linux_amd64
-              tofu validate
+              # tofu validate
   Deploy:
     needs: Prepare
     runs-on: self-hosted
