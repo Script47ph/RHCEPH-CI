@@ -33,17 +33,21 @@ jobs:
               source scripts/generate-network.sh
               generate_net
               ls -lh
+      - name: Validate Template
+        run:  |
+                tofu init
+                tofu validate
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: Libvirt_Network_Template
       #     path: ${{ vars.TMPDIR }}/cluster-network.tf
       #     overwrite: true
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-      - name: Terraform Init
-        run: terraform init >> $GITHUB_OUTPUT
-      - name: Terraform Validate
-        run: terraform validate >> $GITHUB_OUTPUT
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v1
+      # - name: Terraform Init
+      #   run: terraform init
+      # - name: Terraform Validate
+      #   run: terraform validate
   Deploy:
     needs: Prepare
     runs-on: self-hosted
