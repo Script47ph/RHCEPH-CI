@@ -32,6 +32,7 @@ jobs:
         run: |
               source scripts/generate-network.sh
               generate_net
+              ls -lh
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: Libvirt_Network_Template
@@ -39,11 +40,10 @@ jobs:
       #     overwrite: true
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-      - name: Validate Template
-        run: |
-              cd $TMPDIR
-              terraform init
-              terraform validate
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Validate
+        run: terraform validate
   Deploy:
     needs: Prepare
     runs-on: self-hosted
