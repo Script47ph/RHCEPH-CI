@@ -28,26 +28,27 @@ jobs:
         run: |
               source scripts/generate-network.sh
               generate_net
-              ls -R
-              cat $TMPDIR/cluster-network.tf
+              # ls -R
+              # cat $TMPDIR/cluster-network.tf
+      - name: Validate Template
+        run: |
+              cd $TMPDIR
               tofu validate
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Libvirt_Network_Template
-          path: ${{ vars.TMPDIR }}/cluster-network.tf
-          overwrite: true
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: Libvirt_Network_Template
+      #     path: ${{ vars.TMPDIR }}/cluster-network.tf
+      #     overwrite: true
   Deploy:
     needs: Prepare
     runs-on: self-hosted
-    env:
-      TMPDIR: ${{ vars.TMPDIR }}
     steps:
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
       #     path: your/destination/dir
       - name: Display structure of downloaded files
-        run: ls -R
+        run: ls -R ${{ vars.TMPDIR }}
       # - name: Check Libvirt Network in Cluster
       #   run: |
       #         if [[ -n $(sudo virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME') ]]; then 
