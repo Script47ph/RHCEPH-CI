@@ -40,7 +40,7 @@ jobs:
       - name: Validate Template
         run: |
               cd $TMPDIR
-              tofu providers lock -platform=linux_amd64
+              # tofu providers lock -platform=linux_amd64
               tofu init
               
               # tofu validate
