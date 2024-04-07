@@ -33,7 +33,7 @@ jobs:
                   sudo virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME'
               else
                   echo "Applying Livirt Network.."
-                  cat cluster-network.tf
+                  # cat cluster-network.tf
                   # bash network/create-net.sh
                   # sudo virsh net-list | grep net-${CIDR}.*
               fi
