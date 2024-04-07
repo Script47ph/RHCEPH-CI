@@ -19,7 +19,7 @@ jobs:
         run: |
               bash scripts/generate-network.sh
               ls -R
-              # cat cluster-network.tf
+              cat cluster-network.tf
       # - name: Check User Info
       #   run: |
       #         id
