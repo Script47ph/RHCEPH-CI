@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: Check User Info
-        run: -|
+        run: |
               id
               pwd
       - name: Checkout to root
