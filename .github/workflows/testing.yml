@@ -25,10 +25,11 @@ jobs:
         run: |
               id
               pwd
-      - name: Checkout to root
-        run: sudo su
+      # - name: Checkout to root
+      #   run: sudo su
       - name: Creating Terraform Network
         run: |
+              ETH0=${BR_ETH0}
               mkdir -p network
               cat <<EOF > network/cluster-network.tf
               provider "libvirt" {
@@ -49,7 +50,7 @@ jobs:
               resource "libvirt_network" "eth0" {
                   name = "net-dont-use-eth0"
                   mode = "nat"
-                  bridge = "${BR_ETH0}"
+                  bridge = "${ETH0}"
                   addresses = ["192.168.251.0/24"]
                   dhcp {
                       enabled = true
