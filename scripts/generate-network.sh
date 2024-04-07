@@ -24,4 +24,4 @@
 #     }
 # }
 # EOF
-echo ${ETH0_NAME}
+echo $TESTING
