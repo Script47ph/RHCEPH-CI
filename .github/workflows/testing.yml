@@ -37,13 +37,14 @@ jobs:
       #     name: Libvirt_Network_Template
       #     path: ${{ vars.TMPDIR }}/cluster-network.tf
       #     overwrite: true
-      - name: Validate Template
-        run: |
-              cd $TMPDIR
-              terraform init
-              # tofu providers lock -platform=linux_amd64
-              # tofu init
-              # tofu validate
+      - name: Change Directory
+        run: cd $TMPDIR
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Validate
+        run: terraform validate
   Deploy:
     needs: Prepare
     runs-on: self-hosted
