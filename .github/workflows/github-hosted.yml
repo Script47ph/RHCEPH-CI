@@ -58,9 +58,11 @@ jobs:
           script: |
             ssh -t ${{ secrets.DIRECTOR }} '
             hostname && \
-            list=$(virsh net-list|grep "eth0\|eth1");
+            list=$(virsh net-list|grep "${{ vars.ETH0_NAME }}\|${{ vars.ETH1_NAME }}\|${{ vars.ETH2_NAME }}");
             if [ -n "$list" ];
-            then echo found;
+            then echo Libvirt network exists!;
+            else echo Libvirt network doesnt exists;
+            echo Applying network...;
             fi'
       # - uses: actions/download-artifact@v4
       #   with:
