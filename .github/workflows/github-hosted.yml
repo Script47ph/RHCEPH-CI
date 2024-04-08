@@ -77,7 +77,6 @@ jobs:
       - Prepare
       - Checking
     runs-on: ubuntu-latest
-    if: needs.Checking.outputs == 'False'
     steps:
       - env:
           OUTPUT1: ${{needs.job1.outputs.output1}}
