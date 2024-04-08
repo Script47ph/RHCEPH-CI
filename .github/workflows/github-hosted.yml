@@ -50,6 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checking Libvirt Network
+        id: ssh
         # uses: appleboy/ssh-action@v1.0.3
         uses: Script47ph/ssh-action@testing
         with:
@@ -64,9 +65,7 @@ jobs:
             else echo False;
             fi'
       - name: Echoing
-        run: |
-          echo $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
+        run: echo "${{ steps.ssh.outputs.stdout }}"
   Applying:
     needs: 
       - Prepare
