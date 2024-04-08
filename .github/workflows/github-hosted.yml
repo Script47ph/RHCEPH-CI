@@ -56,9 +56,11 @@ jobs:
           username: ${{ secrets.LAB7_USER }}
           key: ${{ secrets.LAB7_KEY }}
           script: |
-            free -h
-            ssh ${{ secrets.DIRECTOR }} free -h
-            free -h
+            ssh ${{ secrets.DIRECTOR }} "\
+            hostname && \
+            echo "Applying Livirt Network.." \
+            virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME'
+            "
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
