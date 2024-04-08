@@ -22,12 +22,12 @@ jobs:
       TEMPLATE_DIR: ${{ vars.TEMPLATE_DIR }}
     steps:
       - uses: actions/checkout@v4
-    #   - name: Create Temp Directory
-    #     run: |
-    #           # if [ -d $TMPDIR ]; then
-    #           #   sudo rm -rf $TMPDIR
-    #           # fi
-    #           mkdir -p $TMPDIR
+      - name: Create Template Directory
+        run: |
+              # if [ -d $TEMPLATE_DIR ]; then
+              #   sudo rm -rf $TEMPLATE_DIR
+              # fi
+              mkdir -p $TEMPLATE_DIR
       - name: Generate Libvirt Network
         run: |
               source scripts/generate-network.sh
