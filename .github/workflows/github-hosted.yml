@@ -19,7 +19,6 @@ jobs:
       ETH2_BR: ${{ vars.ETH2_BR }}
       ETH2_ADDRESSES: ${{ vars.ETH2_ADDRESSES }}
       NETWORK_MODE: ${{ vars.NETWORK_MODE }}
-      TMPDIR: ${{ vars.TMPDIR }}
     steps:
       - uses: actions/checkout@v4
     #   - name: Create Temp Directory
