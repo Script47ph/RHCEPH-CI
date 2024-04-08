@@ -50,7 +50,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checking Libvirt Network
-        uses: appleboy/ssh-action@v1.0.3
+        # uses: appleboy/ssh-action@v1.0.3
+        uses: Script47ph/ssh-action@testing
         with:
           host: ${{ secrets.LAB7_HOST }}
           username: ${{ secrets.LAB7_USER }}
@@ -61,7 +62,7 @@ jobs:
             if [ -n "$list" ];
             then echo True!;
             else echo False;
-            fi' >> $GITHUB_OUTPUT
+            fi'
   Applying:
     needs: 
       - Prepare
