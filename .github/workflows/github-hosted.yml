@@ -59,7 +59,7 @@ jobs:
             ssh -t ${{ secrets.DIRECTOR }} '
             hostname && \
             if [ -n "/root" ];
-            then directory exists;
+            then echo directory exists;
             fi'
       # - uses: actions/download-artifact@v4
       #   with:
