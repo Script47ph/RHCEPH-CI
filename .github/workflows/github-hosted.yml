@@ -45,11 +45,11 @@ jobs:
               cd $TEMPLATE_DIR
               terraform init
               terraform validate
-  Deploy:
+  Checking:
     needs: Prepare
     runs-on: ubuntu-latest
     steps:
-      - name: executing remote ssh commands using ssh key
+      - name: Checking Libvirt Network
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.LAB7_HOST }}
@@ -57,13 +57,20 @@ jobs:
           key: ${{ secrets.LAB7_KEY }}
           script: |
             ssh -t ${{ secrets.DIRECTOR }} '
-            hostname && \
             list=$(virsh net-list|grep "${{ vars.ETH0_NAME }}\|${{ vars.ETH1_NAME }}\|${{ vars.ETH2_NAME }}");
             if [ -n "$list" ];
-            then echo Libvirt network exists!;
-            else echo Libvirt network doesnt exists;
-            echo Applying network...;
-            fi'
+            then echo True!;
+            else echo False;
+            fi' >> $GITHUB_OUTPUT
+  Applying:
+    needs: 
+      - Prepare
+      - Checking
+    runs-on: ubuntu-latest
+    if: needs.Checking.outputs == 'True'
+    steps:
+      - name: Applying Libvirt Network
+        run: echo job value is true
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
