@@ -23,12 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Create Template Directory
-        run: |
-              ls -lhR
-              # if [ -d $TEMPLATE_DIR ]; then
-              #   sudo rm -rf $TEMPLATE_DIR
-              # fi
-              mkdir -p $TEMPLATE_DIR
+        run: mkdir -p $TEMPLATE_DIR
       - name: Generate Libvirt Network
         run: |
               source scripts/generate-network.sh
