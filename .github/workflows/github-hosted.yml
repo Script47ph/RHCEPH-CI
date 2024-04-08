@@ -55,7 +55,10 @@ jobs:
           host: ${{ secrets.LAB7_HOST }}
           username: ${{ secrets.LAB7_USER }}
           key: ${{ secrets.LAB7_KEY }}
-          script: whoami
+          script: |
+            whoami
+            id
+            free -h
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
