@@ -32,7 +32,7 @@ jobs:
         run: |
               source scripts/generate-network.sh
               generate_net
-              cat cluster-network.tf
+            #   cat cluster-network.tf
     #   - name: Validate Template
     #     run:  |
     #             tofu init
@@ -42,12 +42,14 @@ jobs:
       #     name: Libvirt_Network_Template
       #     path: ${{ vars.TMPDIR }}/cluster-network.tf
       #     overwrite: true
-      # - name: Setup Terraform
-      #   uses: hashicorp/setup-terraform@v1
-      # - name: Terraform Init
-      #   run: terraform init
-      # - name: Terraform Validate
-      #   run: terraform validate
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: |
+                Terraform Init
+                ls -lhR
+        run: terraform init
+      - name: Terraform Validate
+        run: terraform validate
 #   Deploy:
 #     needs: Prepare
 #     runs-on: self-hosted
