@@ -57,9 +57,10 @@ jobs:
           key: ${{ secrets.LAB7_KEY }}
           script: |
             ssh ${{ secrets.DIRECTOR }} "\
-            hostname && \
-            echo "Applying Livirt Network.." \
-            virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME'
+            hostname &&\
+            virsh net-list &&\
+            echo $NETWORK_MODE &&\
+            echo ${{ vars.NETWORK_MODE }}
             "
       # - uses: actions/download-artifact@v4
       #   with:
