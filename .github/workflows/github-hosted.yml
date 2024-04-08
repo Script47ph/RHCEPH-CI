@@ -63,7 +63,8 @@ jobs:
             if [ -n "$list" ];
             then echo True!;
             else echo False;
-            fi'
+            fi &&\
+            whoami'
       - name: Echoing
         run: echo "${{ steps.ssh.outputs.stdout }}"
   Applying:
