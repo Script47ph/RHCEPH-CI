@@ -58,15 +58,17 @@ jobs:
           username: ${{ secrets.LAB7_USER }}
           key: ${{ secrets.LAB7_KEY }}
           script: |
-            ssh -t ${{ secrets.DIRECTOR }} '
-            list=$(virsh net-list|grep "${{ vars.ETH0_NAME }}\|${{ vars.ETH1_NAME }}\|${{ vars.ETH2_NAME }}");
-            if [ -n "$list" ];
-            then echo True!;
-            else echo False;
-            fi &&\
-            whoami'
-      - name: Echoing
+            # ssh -t ${{ secrets.DIRECTOR }} '
+            # list=$(virsh net-list|grep "${{ vars.ETH0_NAME }}\|${{ vars.ETH1_NAME }}\|${{ vars.ETH2_NAME }}");
+            # if [ -n "$list" ];
+            # then echo True!;
+            # else echo False;
+            # fi'
+            ssh -t ${{ secrets.DIRECTOR }} free -h
+      - name: Echoing Stdout
         run: echo "${{ steps.ssh.outputs.stdout }}"
+      - name: Echoing Stderr
+        run: echo "${{ steps.ssh.outputs.stderr }}"
   Applying:
     needs: 
       - Prepare
