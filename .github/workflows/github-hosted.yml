@@ -64,7 +64,7 @@ jobs:
             # then echo True!;
             # else echo False;
             # fi'
-            ssh -t ${{ secrets.DIRECTOR }} free -h
+            ssh ${{ secrets.DIRECTOR }} free -h
       - name: Echoing Stdout
         run: echo "${{ steps.ssh.outputs.stdout }}"
       - name: Echoing Stderr
