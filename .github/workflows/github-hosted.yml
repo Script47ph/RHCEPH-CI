@@ -68,10 +68,10 @@ jobs:
       - Prepare
       - Checking
     runs-on: ubuntu-latest
-    if: needs.Checking.outputs == 'True'
+    if: needs.Checking.outputs == 'False'
     steps:
       - name: Applying Libvirt Network
-        run: echo job value is true
+        run: echo job value is false
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
