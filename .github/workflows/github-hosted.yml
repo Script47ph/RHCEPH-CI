@@ -56,8 +56,8 @@ jobs:
           username: ${{ secrets.LAB7_USER }}
           key: ${{ secrets.LAB7_KEY }}
           script: |
-            whoami
-            id
+            free -h
+            ssh ${{ secrets.DIRECTOR }} free -h
             free -h
       # - uses: actions/download-artifact@v4
       #   with:
