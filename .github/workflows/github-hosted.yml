@@ -57,10 +57,14 @@ jobs:
           key: ${{ secrets.LAB7_KEY }}
           script: |
             ssh ${{ secrets.DIRECTOR }} "\
-            hostname &&\
-            virsh net-list &&\
-            echo $NETWORK_MODE &&\
-            echo ${{ vars.NETWORK_MODE }}
+            hostname && \
+            if [[ -n $(virsh net-list | grep 'net-dont-use-eth0\|$${{ vars.ETH0_NAME }}\|$${{ vars.ETH1_NAME }}\|$${{ vars.ETH2_NAME }}') ]]; then 
+                echo 'Libvirt Network Already Exists'
+                # virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME'
+            else
+                echo 'Applying Livirt Network..'
+                # virsh net-list | grep '$ETH0_NAME\|$ETH1_NAME\|$ETH2_NAME'
+            fi
             "
       # - uses: actions/download-artifact@v4
       #   with:
