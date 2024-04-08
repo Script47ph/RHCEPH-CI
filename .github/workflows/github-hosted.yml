@@ -58,7 +58,7 @@ jobs:
           script: |
             ssh ${{ secrets.DIRECTOR }} "\
             hostname && \
-            if [ -n $(virsh net-list | grep 'net-dont-use-eth0']; then 
+            if [ -n $(virsh net-list | grep 'net-dont-use-eth0') ]; then 
                 echo 'Libvirt Network Already Exists'
             else
                 echo 'Applying Livirt Network..'
