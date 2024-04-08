@@ -48,6 +48,9 @@ jobs:
   Checking:
     needs: Prepare
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.test }}
     steps:
       - name: Checking Libvirt Network
         id: ssh
@@ -64,11 +67,11 @@ jobs:
             # then echo True!;
             # else echo False;
             # fi'
-            ssh ${{ secrets.DIRECTOR }} free -h
-      - name: Echoing Stdout
-        run: echo "${{ steps.ssh.outputs.stdout }}"
-      - name: Echoing Stderr
-        run: echo "${{ steps.ssh.outputs.stderr }}"
+            ssh -t ${{ secrets.DIRECTOR }} free -h
+      - id: step1
+        run: echo "test=hello" >> "$GITHUB_OUTPUT"
+      - id: step2
+        run: echo "test=world" >> "$GITHUB_OUTPUT"
   Applying:
     needs: 
       - Prepare
@@ -76,8 +79,10 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.Checking.outputs == 'False'
     steps:
-      - name: Applying Libvirt Network
-        run: echo job value is false
+      - env:
+          OUTPUT1: ${{needs.job1.outputs.output1}}
+          OUTPUT2: ${{needs.job1.outputs.output2}}
+        run: echo "$OUTPUT1 $OUTPUT2"
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
