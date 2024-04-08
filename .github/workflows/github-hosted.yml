@@ -19,6 +19,7 @@ jobs:
       ETH2_BR: ${{ vars.ETH2_BR }}
       ETH2_ADDRESSES: ${{ vars.ETH2_ADDRESSES }}
       NETWORK_MODE: ${{ vars.NETWORK_MODE }}
+      TEMPLATE_DIR: ${{ vars.TEMPLATE_DIR }}
     steps:
       - uses: actions/checkout@v4
     #   - name: Create Temp Directory
@@ -41,12 +42,15 @@ jobs:
       #     name: Libvirt_Network_Template
       #     path: ${{ vars.TMPDIR }}/cluster-network.tf
       #     overwrite: true
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-      - name: Terraform Init
-        run: terraform init
-      - name: Terraform Validate
-        run: terraform validate
+      
+      - uses: hashicorp/setup-terraform@v3
+      - name: Validate Terraform Template
+        run: |
+              cd $TEMPLATE_DIR
+              ls -lhR
+              terraform init
+              terraform validate
+              ls -lhR
 #   Deploy:
 #     needs: Prepare
 #     runs-on: self-hosted

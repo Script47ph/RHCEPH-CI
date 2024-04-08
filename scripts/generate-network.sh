@@ -1,5 +1,5 @@
 generate_net() {
-    cat <<EOF> cluster-network.tf
+    cat <<EOF> $TEMPLATE_DIR/cluster-network.tf
     provider "libvirt" {
       uri = "qemu:///system"
     }
