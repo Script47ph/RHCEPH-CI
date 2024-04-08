@@ -44,9 +44,7 @@ jobs:
       #     overwrite: true
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-      - name: |
-                Terraform Init
-                ls -lhR
+      - name: Terraform Init
         run: terraform init
       - name: Terraform Validate
         run: terraform validate
