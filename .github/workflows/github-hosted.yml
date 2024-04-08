@@ -1,13 +1,13 @@
-name: CI
+name: Github Hosted
 on:
-  # push:
-  #   branches: [ "main" ]
+  push:
+    branches: [ "main" ]
   # pull_request:
   #   branches: [ "main" ]
   workflow_dispatch:
 jobs:
   Prepare:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     env:
       ETH0_NAME: ${{ vars.ETH0_NAME }}
       ETH0_BR: ${{ vars.ETH0_BR }}
@@ -21,21 +21,22 @@ jobs:
       NETWORK_MODE: ${{ vars.NETWORK_MODE }}
       TMPDIR: ${{ vars.TMPDIR }}
     steps:
-      - uses: actions/checkout@main
-      - name: Create Temp Directory
-        run: |
-              # if [ -d $TMPDIR ]; then
-              #   sudo rm -rf $TMPDIR
-              # fi
-              mkdir -p $TMPDIR
+      - uses: actions/checkout@v4
+    #   - name: Create Temp Directory
+    #     run: |
+    #           # if [ -d $TMPDIR ]; then
+    #           #   sudo rm -rf $TMPDIR
+    #           # fi
+    #           mkdir -p $TMPDIR
       - name: Generate Libvirt Network
         run: |
               source scripts/generate-network.sh
               generate_net
-      - name: Validate Template
-        run:  |
-                tofu init
-                tofu validate
+              cat cluster-network.tf
+    #   - name: Validate Template
+    #     run:  |
+    #             tofu init
+    #             tofu validate
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: Libvirt_Network_Template
@@ -47,17 +48,17 @@ jobs:
       #   run: terraform init
       # - name: Terraform Validate
       #   run: terraform validate
-  Deploy:
-    needs: Prepare
-    runs-on: self-hosted
-    steps:
-      - name: executing remote ssh commands using ssh key
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.LAB7_HOST }}
-          username: ${{ secrets.LAB7_USER }}
-          key: ${{ secrets.LAB7_KEY }}
-          script: whoami
+#   Deploy:
+#     needs: Prepare
+#     runs-on: self-hosted
+#     steps:
+#       - name: executing remote ssh commands using ssh key
+#         uses: appleboy/ssh-action@v1.0.3
+#         with:
+#           host: ${{ secrets.LAB7_HOST }}
+#           username: ${{ secrets.LAB7_USER }}
+#           key: ${{ secrets.LAB7_KEY }}
+#           script: whoami
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
