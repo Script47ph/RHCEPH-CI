@@ -24,6 +24,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Create Template Directory
         run: |
+              ls -lhR
               # if [ -d $TEMPLATE_DIR ]; then
               #   sudo rm -rf $TEMPLATE_DIR
               # fi
@@ -47,10 +48,8 @@ jobs:
       - name: Validate Terraform Template
         run: |
               cd $TEMPLATE_DIR
-              ls -lhR
               terraform init
               terraform validate
-              ls -lhR
   Deploy:
     needs: Prepare
     runs-on: ubuntu-latest
