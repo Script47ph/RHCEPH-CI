@@ -56,9 +56,9 @@ jobs:
           username: ${{ secrets.LAB7_USER }}
           key: ${{ secrets.LAB7_KEY }}
           script: |
-            ssh ${{ secrets.DIRECTOR }} '\
+            ssh -t ${{ secrets.DIRECTOR }} '\
             hostname && \
-            if [ -n $(virsh net-list | grep 'eth0') ];
+            if [ -n $(virsh net-list|grep eth0) ];
             then echo 'Libvirt Network Already Exists';
             else echo 'Applying Livirt Network..';
             fi
