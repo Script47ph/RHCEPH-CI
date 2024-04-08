@@ -58,8 +58,9 @@ jobs:
           script: |
             ssh -t ${{ secrets.DIRECTOR }} '
             hostname && \
-            if [ -n "$(virsh net-list|grep eth0)" ];
-            then echo eth0 exists;
+            list=$(virsh net-list|grep "eth0\|eth1");
+            if [ -n "$list" ];
+            then echo found;
             fi'
       # - uses: actions/download-artifact@v4
       #   with:
