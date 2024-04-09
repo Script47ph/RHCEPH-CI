@@ -59,7 +59,7 @@ jobs:
           key: ${{ secrets.LAB7_KEY }}
           script: |
             ssh -t ${{ secrets.DIRECTOR }} \
-            'if [[ -n $(virsh net-list|grep "${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}") ]];
+            'if [[ -n $(virsh net-list|grep "eth0\|${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}") ]];
             then echo libvirt network exists;
             exit 1;
             else
