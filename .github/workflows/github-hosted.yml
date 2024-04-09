@@ -76,7 +76,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: libvirt_network_template
-          path: distfiles
+          path: ${{ github.repository }}
       - name: Copy libvirt network
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -84,7 +84,7 @@ jobs:
           username: ${{ secrets.LAB7_USER }}
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.LAB7_KEY }}
-          source: distfiles/*
+          source: ${{ github.repository}}/*
           target: ${{ secrets.MYDIR }}
       - name: Applying libvirt network
         uses: appleboy/ssh-action@v1.0.3
