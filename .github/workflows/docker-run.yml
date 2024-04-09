@@ -1,0 +1,17 @@
+name: Docker Run
+on:
+    push:
+      branches: [ "main" ]
+    # pull_request:
+    #   branches: [ "main" ]
+    workflow_dispatch:
+jobs:
+  Testing:
+    runs-on: self-hosted
+    steps:
+    - name: Run docker manually
+      id: docker_run
+      run: |
+          podman run --rm golang:alpine go version | printf "version=%s\n" "$(cat)" >> $GITHUB_OUTPUT
+    - run: printf "Version is %s" "${{ steps.docker_run.outputs.version }}"
+
