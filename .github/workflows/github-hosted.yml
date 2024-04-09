@@ -60,6 +60,6 @@ jobs:
           script: |
             ssh -t ${{ secrets.DIRECTOR }} \
             'if [ -n $(virsh net-list|grep eth0) ];
-            then echo eth0 exist.;
+            then echo eth0 exist;
             fi'
   
