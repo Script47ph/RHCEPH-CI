@@ -60,5 +60,6 @@ jobs:
           script: |
             ssh -t ${{ secrets.DIRECTOR }} \
             'virsh net-list'
+            exit 1
 
   
