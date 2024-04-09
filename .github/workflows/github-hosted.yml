@@ -43,7 +43,7 @@ jobs:
         if: steps.validate.outcome == 'success'
         with:
           name: Libvirt_Network_Template
-          path: ./template/cluster-network.tf
+          path: ${{ vars.TEMPLATE_DIR}}/cluster-network.tf
           overwrite: true
 
   # Checking:
