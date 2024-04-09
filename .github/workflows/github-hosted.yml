@@ -65,4 +65,12 @@ jobs:
             else
             exit 0;
             fi'
-  
+  Apply:
+    needs: 
+      - Prepare
+      - Checking
+    runs-on: ubuntu-latest
+    if: needs.Checking.result == 'success'
+    steps:
+      - name: Previous jobs is success
+        run: echo previous jobs is success
