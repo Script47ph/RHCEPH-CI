@@ -1,7 +1,7 @@
 name: Github Hosted
 on:
-  # push:
-  #   branches: [ "main" ]
+  push:
+    branches: [ "main" ]
   # pull_request:
   #   branches: [ "main" ]
   workflow_dispatch:
@@ -65,7 +65,6 @@ jobs:
             # else echo False;
             # fi'
             ssh -t ${{ secrets.DIRECTOR }} free -h
-      # - run: printf "Output is %s" "${{ steps.checking.outputs.memfree }}"
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
