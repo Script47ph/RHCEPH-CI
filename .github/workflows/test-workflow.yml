@@ -1,0 +1,18 @@
+name: Test Workflow
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail and Success
+        id: failsucs
+        run: |
+          echo success && exit 0
+      - name: Using context from previous steps
+        if: ${{ failure() && steps.failsucs.conclusion == 'failure' }}
+        run: |
+          echo previous steps is failure
