@@ -24,27 +24,28 @@ jobs:
       - uses: actions/checkout@v4
       - name: Create Template Directory
         run: mkdir -p $TEMPLATE_DIR
+        
       - name: Generate Libvirt Network
         run: |
               source scripts/generate-network.sh
               generate_net
-            #   cat cluster-network.tf
-    #   - name: Validate Template
-    #     run:  |
-    #             tofu init
-    #             tofu validate
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: Libvirt_Network_Template
-      #     path: ${{ vars.TMPDIR }}/cluster-network.tf
-      #     overwrite: true
       
       - uses: hashicorp/setup-terraform@v3
       - name: Validate Terraform Template
+        id: validate
         run: |
               cd $TEMPLATE_DIR
               terraform init
               terraform validate
+
+      - name: Upload template as artifact
+        uses: actions/upload-artifact@v4
+        if: steps.validate.outcome == 'success'
+        with:
+          name: Libvirt_Network_Template
+          path: $TEMPLATE_DIR/cluster-network.tf
+          overwrite: true
+
   Checking:
     needs: Prepare
     runs-on: ubuntu-latest
@@ -52,7 +53,6 @@ jobs:
       - name: Checking Libvirt Network
         id: ssh
         uses: appleboy/ssh-action@v1.0.3
-        # uses: Script47ph/ssh-action@testing
         with:
           host: ${{ secrets.LAB7_HOST }}
           username: ${{ secrets.LAB7_USER }}
@@ -70,7 +70,26 @@ jobs:
       - Prepare
       - Checking
     runs-on: ubuntu-latest
-    if: needs.Checking.result == 'failure'
+    # if: needs.Checking.result == 'success'
     steps:
-      - name: Previous jobs is failed
-        run: echo previous jobs is failed
+      - name: Copy Libvirt Network Template
+        uses: actions/download-artifact@v4
+        with:
+          name: Libvirt_Network_Template
+          path: distfiles
+      - uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.LAB7_HOST }}
+          username: ${{ secrets.LAB7_USER }}
+          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.LAB7_KEY }}
+          source: distfiles/*
+          target: ${{ secrets.MYDIR }}
+      - name: Applying Libvirt Network
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.LAB7_HOST }}
+          username: ${{ secrets.LAB7_USER }}
+          key: ${{ secrets.LAB7_KEY }}
+          script: |
+            ls -lh ${{ secrets.MYDIR }}
