@@ -65,7 +65,7 @@ jobs:
             # else echo False;
             # fi'
             ssh -t ${{ secrets.DIRECTOR }} free -h
-      - run: printf "${{ steps.checking.outputs.out }}"
+      - run: echo "${{ steps.checking.outputs.stdout }}"
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
