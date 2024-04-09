@@ -11,7 +11,7 @@ jobs:
       - name: Fail and Success
         id: failsucs
         run: |
-          echo failed && exit 1
+          echo success && exit 0
       - name: Using context from previous steps
         if: ${{ failure() && steps.failsucs.conclusion == 'success' }}
         run: |
