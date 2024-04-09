@@ -89,7 +89,7 @@ jobs:
           target: ${{ secrets.MYDIR }}
       - name: Applying libvirt network
         uses: appleboy/ssh-action@v1.0.3
-        # if: ${{ steps.ssh.outcome == 'success'}}
+        if: ${{ steps.ssh.outcome == 'success'}}
         with:
           host: ${{ secrets.LAB7_HOST }}
           username: ${{ secrets.LAB7_USER }}
@@ -97,5 +97,6 @@ jobs:
           script: |
             ls -lh ${{ secrets.MYDIR }}
             cd ${{ secrets.MYDIR }}/${{ github.repository }}
-            pwd
+            terraform init
+            terraform apply -auto-approve
             
