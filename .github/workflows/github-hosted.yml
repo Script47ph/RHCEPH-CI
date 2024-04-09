@@ -70,7 +70,7 @@ jobs:
       - Prepare
       - Checking
     runs-on: ubuntu-latest
-    if: needs.Checking.result == 'success'
+    if: needs.Checking.result == 'failure'
     steps:
-      - name: Previous jobs is success
-        run: echo previous jobs is success
+      - name: Previous jobs is failed
+        run: echo previous jobs is failed
