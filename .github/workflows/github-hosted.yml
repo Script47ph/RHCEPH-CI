@@ -50,24 +50,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checking Libvirt Network
-        id: checking
+        id: ssh
         # uses: appleboy/ssh-action@v1.0.3
         uses: Script47ph/ssh-action@testing
         with:
           host: ${{ secrets.LAB7_HOST }}
           username: ${{ secrets.LAB7_USER }}
           key: ${{ secrets.LAB7_KEY }}
-          script: |
-            # ssh -t ${{ secrets.DIRECTOR }} '
-            # list=$(virsh net-list|grep "${{ vars.ETH0_NAME }}\|${{ vars.ETH1_NAME }}\|${{ vars.ETH2_NAME }}");
-            # if [ -n "$list" ];
-            # then echo True!;
-            # else echo False;
-            # fi'
-            ssh -t ${{ secrets.DIRECTOR }} free -h
-      - run: echo "${{ steps.checking.outputs.stdout }}"
-      - run: echo "${{ steps.checking.outputs.stderr }}"
-      - run: echo $GITHUB_OUTPUT
+          script: ssh -t ${{ secrets.DIRECTOR }} free -h
+      - name: Test Output
+        run: echo Output is ${{ steps.ssh.outputs.out }}
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
