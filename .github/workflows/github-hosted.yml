@@ -43,53 +43,53 @@ jobs:
         if: steps.validate.outcome == 'success'
         with:
           name: Libvirt_Network_Template
-          path: $TEMPLATE_DIR/cluster-network.tf
+          path: ./template/cluster-network.tf
           overwrite: true
 
-  Checking:
-    needs: Prepare
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checking Libvirt Network
-        id: ssh
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.LAB7_HOST }}
-          username: ${{ secrets.LAB7_USER }}
-          key: ${{ secrets.LAB7_KEY }}
-          script: |
-            ssh -t ${{ secrets.DIRECTOR }} \
-            'if [[ -n $(virsh net-list|grep "${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}") ]];
-            then echo libvirt network exists;
-            exit 1;
-            else
-            exit 0;
-            fi'
-  Apply:
-    needs: 
-      - Prepare
-      - Checking
-    runs-on: ubuntu-latest
-    # if: needs.Checking.result == 'success'
-    steps:
-      - name: Copy Libvirt Network Template
-        uses: actions/download-artifact@v4
-        with:
-          name: Libvirt_Network_Template
-          path: distfiles
-      - uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.LAB7_HOST }}
-          username: ${{ secrets.LAB7_USER }}
-          password: ${{ secrets.PASSWORD }}
-          key: ${{ secrets.LAB7_KEY }}
-          source: distfiles/*
-          target: ${{ secrets.MYDIR }}
-      - name: Applying Libvirt Network
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.LAB7_HOST }}
-          username: ${{ secrets.LAB7_USER }}
-          key: ${{ secrets.LAB7_KEY }}
-          script: |
-            ls -lh ${{ secrets.MYDIR }}
+  # Checking:
+  #   needs: Prepare
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checking Libvirt Network
+  #       id: ssh
+  #       uses: appleboy/ssh-action@v1.0.3
+  #       with:
+  #         host: ${{ secrets.LAB7_HOST }}
+  #         username: ${{ secrets.LAB7_USER }}
+  #         key: ${{ secrets.LAB7_KEY }}
+  #         script: |
+  #           ssh -t ${{ secrets.DIRECTOR }} \
+  #           'if [[ -n $(virsh net-list|grep "${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}") ]];
+  #           then echo libvirt network exists;
+  #           exit 1;
+  #           else
+  #           exit 0;
+  #           fi'
+  # Apply:
+  #   needs: 
+  #     - Prepare
+  #     - Checking
+  #   runs-on: ubuntu-latest
+  #   # if: needs.Checking.result == 'success'
+  #   steps:
+  #     - name: Copy Libvirt Network Template
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: Libvirt_Network_Template
+  #         path: distfiles
+  #     - uses: appleboy/scp-action@v0.1.7
+  #       with:
+  #         host: ${{ secrets.LAB7_HOST }}
+  #         username: ${{ secrets.LAB7_USER }}
+  #         password: ${{ secrets.PASSWORD }}
+  #         key: ${{ secrets.LAB7_KEY }}
+  #         source: distfiles/*
+  #         target: ${{ secrets.MYDIR }}
+  #     - name: Applying Libvirt Network
+  #       uses: appleboy/ssh-action@v1.0.3
+  #       with:
+  #         host: ${{ secrets.LAB7_HOST }}
+  #         username: ${{ secrets.LAB7_USER }}
+  #         key: ${{ secrets.LAB7_KEY }}
+  #         script: |
+  #           ls -lh ${{ secrets.MYDIR }}
