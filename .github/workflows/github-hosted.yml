@@ -52,7 +52,7 @@ jobs:
       - name: Checking Libvirt Network
         id: checking
         # uses: appleboy/ssh-action@v1.0.3
-        uses: Script47ph/ssh-action@testing
+        uses: Script47ph/ssh-action@testingv2
         with:
           host: ${{ secrets.LAB7_HOST }}
           username: ${{ secrets.LAB7_USER }}
@@ -64,8 +64,8 @@ jobs:
             # then echo True!;
             # else echo False;
             # fi'
-            ssh -t ${{ secrets.DIRECTOR }} free -h | printf "memfree=%s\n" "$(cat)" >> $GITHUB_OUTPUT
-      - run: printf "Output is %s" "${{ steps.checking.outputs.memfree }}"
+            ssh -t ${{ secrets.DIRECTOR }} free -h
+      # - run: printf "Output is %s" "${{ steps.checking.outputs.memfree }}"
       # - uses: actions/download-artifact@v4
       #   with:
       #     name: my-artifact
