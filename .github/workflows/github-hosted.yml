@@ -22,16 +22,16 @@ jobs:
       TEMPLATE_DIR: ${{ vars.TEMPLATE_DIR }}
     steps:
       - uses: actions/checkout@v4
-      - name: Create Template Directory
+      - name: Create template directory
         run: mkdir -p $TEMPLATE_DIR
         
-      - name: Generate Libvirt Network
+      - name: Generate libvirt network
         run: |
               source scripts/generate-network.sh
               generate_net
       
       - uses: hashicorp/setup-terraform@v3
-      - name: Validate Terraform Template
+      - name: Validate terraform template
         id: validate
         run: |
               cd $TEMPLATE_DIR
@@ -42,54 +42,55 @@ jobs:
         uses: actions/upload-artifact@v4
         if: steps.validate.outcome == 'success'
         with:
-          name: Libvirt_Network_Template
+          name: libvirt_network_template
           path: ${{ vars.TEMPLATE_DIR}}/cluster-network.tf
           overwrite: true
 
-  # Checking:
-  #   needs: Prepare
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checking Libvirt Network
-  #       id: ssh
-  #       uses: appleboy/ssh-action@v1.0.3
-  #       with:
-  #         host: ${{ secrets.LAB7_HOST }}
-  #         username: ${{ secrets.LAB7_USER }}
-  #         key: ${{ secrets.LAB7_KEY }}
-  #         script: |
-  #           ssh -t ${{ secrets.DIRECTOR }} \
-  #           'if [[ -n $(virsh net-list|grep "${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}") ]];
-  #           then echo libvirt network exists;
-  #           exit 1;
-  #           else
-  #           exit 0;
-  #           fi'
-  # Apply:
-  #   needs: 
-  #     - Prepare
-  #     - Checking
-  #   runs-on: ubuntu-latest
-  #   # if: needs.Checking.result == 'success'
-  #   steps:
-  #     - name: Copy Libvirt Network Template
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: Libvirt_Network_Template
-  #         path: distfiles
-  #     - uses: appleboy/scp-action@v0.1.7
-  #       with:
-  #         host: ${{ secrets.LAB7_HOST }}
-  #         username: ${{ secrets.LAB7_USER }}
-  #         password: ${{ secrets.PASSWORD }}
-  #         key: ${{ secrets.LAB7_KEY }}
-  #         source: distfiles/*
-  #         target: ${{ secrets.MYDIR }}
-  #     - name: Applying Libvirt Network
-  #       uses: appleboy/ssh-action@v1.0.3
-  #       with:
-  #         host: ${{ secrets.LAB7_HOST }}
-  #         username: ${{ secrets.LAB7_USER }}
-  #         key: ${{ secrets.LAB7_KEY }}
-  #         script: |
-  #           ls -lh ${{ secrets.MYDIR }}
+  Checking:
+    needs: Prepare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking libvirt network
+        id: ssh
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.LAB7_HOST }}
+          username: ${{ secrets.LAB7_USER }}
+          key: ${{ secrets.LAB7_KEY }}
+          script: |
+            ssh -t ${{ secrets.DIRECTOR }} \
+            'if [[ -n $(virsh net-list|grep "${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}\|${{ vars.ETH0_NAME}}") ]];
+            then echo libvirt network exists;
+            exit 1;
+            else
+            exit 0;
+            fi'
+  Apply:
+    needs: 
+      - Prepare
+      - Checking
+    runs-on: ubuntu-latest
+    # if: needs.Checking.result == 'success'
+    steps:
+      - name: Download artifact template
+        uses: actions/download-artifact@v4
+        with:
+          name: libvirt_network_template
+          path: distfiles
+      - name: Copy libvirt network
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.LAB7_HOST }}
+          username: ${{ secrets.LAB7_USER }}
+          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.LAB7_KEY }}
+          source: distfiles/*
+          target: ${{ secrets.MYDIR }}
+      - name: Applying libvirt network
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.LAB7_HOST }}
+          username: ${{ secrets.LAB7_USER }}
+          key: ${{ secrets.LAB7_KEY }}
+          script: |
+            ls -lh ${{ secrets.MYDIR }}
