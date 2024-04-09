@@ -13,6 +13,7 @@ jobs:
         run: |
           echo success && exit 0
       - name: Using context from previous steps
-        if: ${{ failure() && steps.failsucs.conclusion == 'success' }}
+        # if: ${{ failure() && steps.failsucs.conclusion == 'failure' }}
+        if: ${{ always() && steps.failsucs.outcome == 'failure'}}
         run: |
           echo previous steps is failure
